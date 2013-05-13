@@ -1,3 +1,19 @@
+# What's new in NewKue
+
+  Base on kue, I want to add more features.
+
+  * return value.
+  * child task.
+  * one task multi phases.
+  * counter base on monitor.
+  * choice Sorted set or List
+  * common logger
+  
+  But, I will remove some features.
+  
+  * search
+  * http management ui
+
 # Kue
 
   Kue is a priority job queue backed by [redis](http://redis.io), built for [node.js](http://nodejs.org).
