@@ -1,18 +1,18 @@
 # What's new in NewKue
 
-  Base on kue, I want to add more features.
+Base on kue, I want to add more features.
 
-  * return value.
-  * child task.
-  * one task multi phases.
-  * counter base on monitor.
-  * choice Sorted set or List
-  * common logger
+* return value.
+* child task.
+* one task multi phases.
+* counter base on monitor.
+* choice Sorted set or List
+* common logger
   
-  But, I will remove some features.
-  
-  * search
-  * http management ui
+But, I will remove some features.
+
+* search
+* http management ui
 
 # Kue
 
