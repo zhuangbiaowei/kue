@@ -26,14 +26,15 @@ But, I will remove some features.
 
   - delayed jobs
   - job event and progress pubsub
-  - rich integrated UI
-  - infinite scrolling
-  - UI progress indication
   - job specific logging
   - powered by Redis
   - optional retries
-  - full-text search capabilities
-  - RESTful JSON API
+  - return value.
+  - child task.
+  - one task multi phases.
+  - counter base on monitor.
+  - choice Sorted set or List
+  - common logger
 
 ## Creating Jobs
 
@@ -248,105 +249,6 @@ jobs.process('slideshow pdf', 5, function(job, done){
 
   Redis connection settings must be set before calling `kue.createQueue()` or accessing `kue.app`.
 
-## User-Interface
-
- The UI is a small [Express](http://github.com/visionmedia/express) application, to fire it up simply run the following, altering the port etc as desired.
-
-```js
-var kue = require('kue');
-kue.app.listen(3000);
-```
-
-The title defaults to "Kue", to alter this invoke:
-
-```js
-kue.app.set('title', 'My Application');
-```
-
-## JSON API
-
-  Along with the UI Kue also exposes a JSON API, which is utilized by the UI.
-
-### GET /job/search?q=
-
-  Query jobs, for example "GET /job/search?q=avi video":
-
-```js
-["5", "7", "10"]
-```
-
-### GET /stats
-
-  Currently responds with state counts, and worker activity time in milliseconds:
-
-```js
-{"inactiveCount":4,"completeCount":69,"activeCount":2,"failedCount":0,"workTime":20892}
-```
-
-### GET /job/:id
-
-  Get a job by `:id`:
-
-```js
-{"id":"3","type":"email","data":{"title":"welcome email for tj","to":"tj@learnboost.com","template":"welcome-email"},"priority":-10,"progress":"100","state":"complete","attempts":null,"created_at":"1309973155248","updated_at":"1309973155248","duration":"15002"}
-```
-
-### GET /job/:id/log
-
-  Get job `:id`'s log:
-  
-```js
-['foo', 'bar', 'baz']
-```
-
-### GET /jobs/:from..:to/:order?
-
-  Get jobs with the specified range `:from` to `:to`, for
-  example "/jobs/0..2", where `:order` may be "asc" or "desc":
-
-```js
-[{"id":"12","type":"email","data":{"title":"welcome email for tj","to":"tj@learnboost.com","template":"welcome-email"},"priority":-10,"progress":0,"state":"active","attempts":null,"created_at":"1309973299293","updated_at":"1309973299293"},{"id":"130","type":"email","data":{"title":"welcome email for tj","to":"tj@learnboost.com","template":"welcome-email"},"priority":-10,"progress":0,"state":"active","attempts":null,"created_at":"1309975157291","updated_at":"1309975157291"}]
-```
-
-### GET /jobs/:state/:from..:to/:order?
-
-  Same as above, restricting by `:state` which is one of:
-  
-    - active
-    - inactive
-    - failed
-    - complete
-
-### GET /jobs/:type/:state/:from..:to/:order?
-
-  Same as above, however restricted to `:type` and `:state`.
-
-### DELETE /job/:id
-
-  Delete job `:id`:
-  
-    $ curl -X DELETE http://local:3000/job/2
-    {"message":"job 2 removed"}
-
-### POST /job
-
-  Create a job:
-
-    $ curl -H "Content-Type: application/json" -X POST -d \
-        '{
-           "type": "email",
-           "data": {
-             "title": "welcome email for tj",
-             "to": "tj@learnboost.com",
-             "template": "welcome-email"
-           },
-           "options" : {
-             "attempts": 5,
-             "priority": "high"
-           }
-         }' http://localhost:3000/job
-    {"message":"job 3 created"}
-
 
 ## Parallel Processing With Cluster
 
@@ -404,11 +306,6 @@ app.use(express.basicAuth('foo', 'bar'));
 app.use(kue.app);
 app.listen(3000);
 ```
-
-## Screencasts
-
-  - [Introduction](http://www.screenr.com/oyNs) to Kue
-  - API [walkthrough](http://nodetuts.com/tutorials/27-kue-jobs.html#video) to Kue
 
 ## License 
 
